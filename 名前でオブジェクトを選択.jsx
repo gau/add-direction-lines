@@ -1,5 +1,5 @@
 /*
-名前でオブジェクトを検索.jsx
+名前でオブジェクトを選択.jsx
 Copyright (c) 2015 Toshiyuki Takahashi
 Released under the MIT license
 http://opensource.org/licenses/mit-license.php
@@ -12,12 +12,16 @@ http://www.graphicartsunit.com/
 	};
 
 	// Constant
-	const SCRIPT_TITLE = "名前でオブジェクトを検索";
-	const SCRIPT_VERSION = "0.5.0";
+	const SCRIPT_TITLE = "名前でオブジェクトを選択";
+	const SCRIPT_VERSION = "0.5.2";
 
 	// UI Dialog
-	var keyword = prompt('パスの名前',　settings.name);
-	selectPathByName(keyword);
+	var keyword = prompt('オブジェクトの名前',　settings.name);
+	if(keyword) {
+		selectPathByName(keyword);
+	} else {
+		return false
+	}
 
 	// Main Process
 	function selectPathByName(str) {
@@ -50,9 +54,14 @@ http://www.graphicartsunit.com/
 		}
 
 		// Show message
-		var message = "全部で " + (targetCollection.length + cantselected) + " 個が見つかりました\nそのうち " + targetCollection.length + " 個を選択しました";
-		if(cantselected > 0) {
-			message += "が、" + cantselected + " 個はロック、非表示、グループのため選択できませんでした";
+		var message = "オブジェクト名：" + str;
+		if (targetCollection.length + cantselected == 0) {
+			message += "\n見つかりませんでした";
+		} else {
+			message += "\n全 " + (targetCollection.length + cantselected) + " 個中 " + targetCollection.length + " 個を選択しました";
+			if(cantselected > 0) {
+				message += "（" + cantselected + " 個はロック、非表示、グループのため選択できませんでした）";
+			}
 		}
 		alert(message);
 
