@@ -42,9 +42,9 @@
 
 | オブジェクト | オブジェクト名 |
 |:-----------|:------------|
-| 方向線 | _added_direction_point_ |
-| 方向点 | _added_direction_path_ |
-| アンカーポイント | _added_direction_anchor_ |
+| 方向線 | \_added\_direction\_point\_ |
+| 方向点 | \_added\_direction\_path_ |
+| アンカーポイント | \_added\_direction\_anchor\_ |
 
 -----
 
