@@ -14,15 +14,12 @@ http://www.graphicartsunit.com/
 		'anchorName' : '_added_direction_anchor_',
 		'addDirectionLine' : true,
 		'addDirectionPoint' : false,
-		'addAnchorPoint' : false,
-		'notDelete' : true,
-		'showAlert' : true
+		'addAnchorPoint' : false
 	};
 
 	// Constant
 	const SCRIPT_TITLE = "方向線を追加";
-	const SCRIPT_VERSION = "0.5.0";
-	const HAIRLINE_ACCURACY = 200;
+	const SCRIPT_VERSION = "0.5.1";
 
 	// UI Dialog
 	function mainDialog() {
@@ -113,18 +110,18 @@ http://www.graphicartsunit.com/
 		drawCircle([this.point[0], this.point[1]], this.diameter);
 	};
 
-	// Prototype of Ancor point
-	function AncorPoint(point, diameter) {
+	// Prototype of Anchor point
+	function AnchorPoint(point, diameter) {
 		this.point = point;
 		this.diameter = diameter;
 		return this;
 	};
-	AncorPoint.prototype.setPropaties = function(obj) {
+	AnchorPoint.prototype.setPropaties = function(obj) {
 		for (var prop in obj){
 			this[prop] = obj[prop];
 		}
 	};
-	AncorPoint.prototype.draw = function() {
+	AnchorPoint.prototype.draw = function() {
 		drawSquare([this.point[0], this.point[1]], this.diameter);
 	};
 
@@ -171,7 +168,7 @@ http://www.graphicartsunit.com/
 		var items = app.activeDocument.pageItems;
 		var directionLines = [];
 		var directionPoints = [];
-		var ancorPoints = [];
+		var anchorPoints = [];
 
 		// Array of delete items
 		var targetCollection = [];
@@ -195,7 +192,6 @@ http://www.graphicartsunit.com/
 						if(settings.addDirectionPoint) directionPoints.push(new DirectionPoint([leftDirection.x, leftDirection.y], 5));
 					}
 				}
-
 				if(point.selected == PathPointSelection.RIGHTDIRECTION || point.selected == PathPointSelection.ANCHORPOINT) {
 					if(ancor.x != rightDirection.x || ancor.y != rightDirection.y) {
 						if(settings.addDirectionLine) directionLines.push(new DirectionLine([ancor.x, ancor.y],[rightDirection.x, rightDirection.y]));
@@ -203,21 +199,20 @@ http://www.graphicartsunit.com/
 					}
 				}
 				if(point.selected != PathPointSelection.NOSELECTION && settings.addAnchorPoint) {
-					ancorPoints.push(new AncorPoint([ancor.x, ancor.y], 5));
+					anchorPoints.push(new AnchorPoint([ancor.x, ancor.y], 5));
 				}
 
 			}
 		}
+
 		for (var index in directionLines){
 			directionLines[index].draw();
 		}
 		for (var index in directionPoints){
 			directionPoints[index].draw();
 		}
-		for (var index in ancorPoints){
-			ancorPoints[index].draw();
+		for (var index in anchorPoints){
+			anchorPoints[index].draw();
 		}
-
 	}
-
 }());
